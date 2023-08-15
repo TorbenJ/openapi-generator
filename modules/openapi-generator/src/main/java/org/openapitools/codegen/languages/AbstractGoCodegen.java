@@ -121,9 +121,9 @@ public abstract class AbstractGoCodegen extends DefaultCodegen implements Codege
         typeMapping.put("date", "string");
         typeMapping.put("DateTime", "time.Time");
         typeMapping.put("password", "string");
-        typeMapping.put("File", "*os.File");
-        typeMapping.put("file", "*os.File");
-        typeMapping.put("binary", "*os.File");
+        typeMapping.put("File", "io.Reader");
+        typeMapping.put("file", "io.Reader");
+        typeMapping.put("binary", "io.Reader");
         typeMapping.put("ByteArray", "string");
         typeMapping.put("null", "nil");
         // A 'type: object' OAS schema without any declared property is

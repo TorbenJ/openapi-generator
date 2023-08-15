@@ -397,6 +397,11 @@ func (c *{{classname}}Controller) {{nickname}}(w http.ResponseWriter, r *http.Re
 	{{#isHeaderParam}}
 	{{paramName}}Param := r.Header.Get("{{baseName}}")
 	{{/isHeaderParam}}
+    {{#isFile}}
+    {{paramName}}Param := r.Body
+    defer r.Body.Close()
+    {{/isFile}}
+    {{^isFile}}
 	{{#isBodyParam}}
 	{{paramName}}Param := {{dataType}}{}
 	d := json.NewDecoder(r.Body)
@@ -430,7 +435,8 @@ func (c *{{classname}}Controller) {{nickname}}(w http.ResponseWriter, r *http.Re
 		{{/isModel}}
 	{{/isArray}}
 	{{/isBodyParam}}
-	{{/allParams}}
+    {{/isFile}}
+    {{/allParams}}
 	result, err := c.service.{{nickname}}(r.Context(){{#allParams}}, {{paramName}}Param{{/allParams}})
 	// If an error occurred, encode the error with the status code
 	if err != nil {
